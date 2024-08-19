@@ -1,5 +1,6 @@
 #include"Hook.h"
-
+#include "Offsets.h"
+#include "Cheats.h"
 bool Detour(BYTE* Func, BYTE* HookAddress, UINT length)
 {
 	if (length >= 5)
@@ -83,11 +84,11 @@ void Hook::Toggle()
 
 
 
-void __fastcall hooked_shootFunc(DWORD* This, void* _EDX, vec3& endPoint)
+void __fastcall hooked_shootFunc(DWORD* This, void* _EDX, vec_3& endPoint)
 {
-	std::cout << "Shot\n";
-	endPoint.x = closest_head_pos_3d.x;
-	endPoint.y = closest_head_pos_3d.y;
-	endPoint.z = closest_head_pos_3d.z;
+	endPoint.x = getClosestHeadPos().x;
+	endPoint.y = getClosestHeadPos().y;
+	endPoint.z = getClosestHeadPos().z;
+
 	original_shootFunc(This, endPoint);
 }

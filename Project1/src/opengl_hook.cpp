@@ -15,13 +15,12 @@ BOOL __stdcall hooked_wglSwapBuffers(HDC hdc)
 	//std::cout << "Hooked";
 	InitOpenGL3(hdc,&imgui_initialized);
 	RenderOpenGL3(handle_GL_rendering_context, hdc, RenderMain);
+
 	values::player_count = *(DWORD*)(0x58AC0C);
 	addresses::entityList = *(DWORD*)(clientbaseAddr + 0x18AC04);
 
-
-
-
-	GetWindowRect(GameWindow, &WindowSize);
+	Gl::setup_ortho();
+	GetWindowRect(gameExtGameWindow, &WindowSize);
 
 	wWidth = WindowSize.right - WindowSize.left;
 	wHeight = WindowSize.bottom - WindowSize.top;
@@ -32,25 +31,22 @@ BOOL __stdcall hooked_wglSwapBuffers(HDC hdc)
 
 		std::cout << "player_count changed\n";
 		values::entity_list = (__temporary::entlist*)(addresses::entityList);
-		//std::cout << values::entity_list->ent[0] << " is player\n";
+		std::cout << values::entity_list->ent[0]->name << " is player\n";
 
 	}
 	values::old_player_count_buffer = values::player_count;
 
-
-
-
-
+	Cheats::tracers();
+	Cheats::silent_aim();
 
 	Gl::draw_frame(200, 200, 300, 300, 2, rgb_colors::red);
-	vec2 fss(200, 200);
-	vec2 tss(200 + 300, 200 + 300);
+	vec_2 fss(200, 200);
+	vec_2 tss(200 + 300, 200 + 300);
 
 	Gl::draw_line(fss, tss, 2, rgb_colors::red);
 
-	Cheats::tracers();
-	Cheats::silent_aim(silentaim_hook);
-
+	
+	
 	Gl::restore_gl();
 
 

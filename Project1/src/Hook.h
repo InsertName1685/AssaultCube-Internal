@@ -3,7 +3,7 @@
 #include <iostream>
 #include<Windows.h>
 
-#include "Offsets.h"
+
 #include"Cheats.h"
 
 bool Detour(BYTE* Func, BYTE* HookAddress, UINT length);
@@ -30,8 +30,8 @@ struct Hook
 static Hook swapBuffer;
 static Hook silentaim_hook;
 
-typedef void(__thiscall* template_shootFunc)(DWORD*, vec3&);
+typedef void(__thiscall* template_shootFunc)(DWORD*, vec_3&);
 
 template_shootFunc original_shootFunc;
-void __fastcall hooked_shootFunc(DWORD* This, void* _EDX, vec3& endPoint);
+void __fastcall hooked_shootFunc(DWORD* This, void* _EDX, vec_3& endPoint);
 

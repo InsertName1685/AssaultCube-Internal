@@ -5,9 +5,9 @@
 #define M_PI 3.14159265358979323846
 
 
-bool Math::worldToScreen(vec3 pos, vec2& screen, viewMatrix matrix, int windowWidth, int windowHeight) {
+bool Math::worldToScreen(vec_3 pos, vec_2& screen, viewMatrix matrix, int windowWidth, int windowHeight) {
 
-    vec4 clipCoords;
+    vec_4 clipCoords;
     clipCoords.x = pos.x * matrix.matrix[0] + pos.y * matrix.matrix[4] + pos.z * matrix.matrix[8] + matrix.matrix[12];
     clipCoords.y = pos.x * matrix.matrix[1] + pos.y * matrix.matrix[5] + pos.z * matrix.matrix[9] + matrix.matrix[13];
     clipCoords.z = pos.x * matrix.matrix[2] + pos.y * matrix.matrix[6] + pos.z * matrix.matrix[10] + matrix.matrix[14];
@@ -18,7 +18,7 @@ bool Math::worldToScreen(vec3 pos, vec2& screen, viewMatrix matrix, int windowWi
     }
 
 
-    vec3 NDC;
+    vec_3 NDC;
     NDC.x = clipCoords.x / clipCoords.w;
     NDC.y = clipCoords.y / clipCoords.w;
     NDC.z = clipCoords.z / clipCoords.w;
@@ -29,10 +29,10 @@ bool Math::worldToScreen(vec3 pos, vec2& screen, viewMatrix matrix, int windowWi
     return true;
 }
 
-bool Math::lookAt(vec3 cameraPos, vec3 target, vec2& rotation) // needs a vec 2 as we are not gona rotate the camera on the z axis
+bool Math::lookAt(vec_3 cameraPos, vec_3 target, vec_2& rotation) // needs a vec 2 as we are not gona rotate the camera on the z axis
 {
 
-    vec3 delta;    // Find distance between myself and nearest enemy
+    vec_3 delta;    // Find distance between myself and nearest enemy
     delta.x = (target.x - cameraPos.x);
     delta.y = (target.y - cameraPos.z);
     delta.z = (target.z - cameraPos.y);
@@ -49,14 +49,14 @@ bool Math::lookAt(vec3 cameraPos, vec3 target, vec2& rotation) // needs a vec 2 
 }
 
 
-float Math::Magnitude(vec2 from, vec2 to) {
+float Math::Magnitude(vec_2 from, vec_2 to) {
     float deltaX = to.x - from.x;
     float deltaY = to.y - from.y;
 
     return sqrt((deltaX * deltaX) + (deltaY * deltaY));
 }
 
-float Math::Magnitude3(vec3 from, vec3 to) {
+float Math::Magnitude3(vec_3 from, vec_3 to) {
     
     float deltaX = to.x - from.x;
     float deltaY = to.y - from.y;

@@ -10,8 +10,8 @@
 namespace position
 {
 	// Assault cubes position order goes x,z,y
-	struct vec3 { float x, z, y; };
-	inline vec3 shuffle_vec(vec3 vec) {
+	struct vec_3 { float x, z, y; };
+	inline vec_3 shuffle_vec(vec_3 vec) {
 		float buffer;
 		buffer = vec.z;
 		vec.z = vec.y;
@@ -21,15 +21,15 @@ namespace position
 	// Rotation order goes x,y,z
 	struct rot3 { float x, y, z; };
 
-	struct vec2 
+	struct vec_2 
 	{ float x, y; 
-		vec2(float x, float y) 
+		vec_2(float x, float y) 
 		{ 
 			this->x = x; this->y = y; 
 		}
 	};
 
-	struct vec4 { float x, y, z, w; };
+	struct vec_4 { float x, y, z, w; };
 
 	struct viewMatrix { float matrix[16]; };
 
@@ -42,10 +42,10 @@ using namespace position;
 struct Entity
 {
 	uintptr_t vTable;
-	vec3 head_position;
-	vec3 velocity;
-	vec3 __speed_difference;
-	vec3 feet_position;
+	vec_3 head_position;
+	vec_3 velocity;
+	vec_3 __speed_difference;
+	vec_3 feet_position;
 	rot3 camera_rotation;
 	float recoil_velocity;
 	float __max_speed; // (literally useless cuz if you go over 16 it crashes your game)

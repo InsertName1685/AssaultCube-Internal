@@ -32,6 +32,9 @@ DWORD WINAPI mainThread(HMODULE module)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY);
 	btfy::titlepage();
 
+	clientbaseAddr = (uintptr_t)GetModuleHandle(L"ac_client.exe");
+	gameExtGameWindow = FindWindowA(NULL, (LPCSTR)"AssaultCube");
+
 
 
 	swapBuffer = Hook((BYTE*)hooked_wglSwapBuffers, (BYTE*)GetProcAddress(GetModuleHandle(L"opengl32.dll"), "wglSwapBuffers"), (BYTE*)&original_wglSwapBuffers, 5);
@@ -51,9 +54,6 @@ DWORD WINAPI mainThread(HMODULE module)
 
 		
 	}
-	
-
-	
 	
 	swapBuffer.Enable();
 	silentaim_hook.Enable();
@@ -99,75 +99,7 @@ BOOL APIENTRY DllMain(HMODULE hmodule, DWORD reasonforCall,LPVOID reserved)
 }
 
 
-int closest_entity_index;
 
-
-void Cheats::silent_aim(Hook &h)
-{
-	int count = 0;
-	float maxDist = (float)0xfffff;
-	std::string name;
-	
-	vec2 middleScreen(wWidth / 2, wHeight / 2);
-
-
-	for (int i = 0; i < (values::player_count - 1); i++)
-	{
-		vec2 screenPosition(0, 0);
-		float Dist;
-		if ((values::entity_list->ent[i] != 0) && (values::entity_list->ent[i]->health > 0) && (values::entity_list->ent[i]->team != values::local_player->team))
-		{
-			viewMatrix vm = *(viewMatrix*)(clientbaseAddr + 0x17DFFC - 0x2C);
-
-			if (Math::worldToScreen(shuffle_vec(values::entity_list->ent[i]->head_position), screenPosition, vm, wWidth, wHeight)) {
-				Dist = Math::Magnitude(middleScreen, screenPosition);
-				if (Dist < maxDist)
-				{
-					maxDist = Dist;
-					closest_head_pos_3d = values::entity_list->ent[i]->head_position;
-					name = values::entity_list->ent[i]->name;
-					closest_entity_index = i;
-				}
-			}
-		}
-	}
-
-	if (values::player_count > 1)
-	{
-		
-		std::cout << name << "\n";
-		std::cout << maxDist << "\n";
-	}
-	else
-	{
-		
-												//mem::Patch((BYTE*)addresses::shoot_function_hook_address, shoot_function_patch_opcode, 7);
-	}
-
-}
-
-void Cheats::tracers()
-{
-	for (int i = 0; i < (values::player_count - 1); i++)
-	{
-		vec2 screenPosition(0, 0);
-		float Dist;
-		if ((values::entity_list->ent[i] != 0) && (values::entity_list->ent[i]->health > 0) && (values::entity_list->ent[i]->team != values::local_player->team))
-		{
-			viewMatrix vm = *(viewMatrix*)(clientbaseAddr + 0x17DFFC - 0x2C);
-
-			if (Math::worldToScreen(shuffle_vec(values::entity_list->ent[i]->head_position), screenPosition, vm, wWidth, wHeight)) {
-				if (i == closest_entity_index) {
-					Gl::draw_line(vec2(wWidth / 2, 0), screenPosition, 0.5, rgb_colors::green);
-				}
-				else
-				{
-					Gl::draw_line(vec2(wWidth / 2, 0), screenPosition, 0.5, rgb_colors::purple);
-				}
-			}
-		}
-	}
-}
 
 
 

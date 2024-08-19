@@ -24,6 +24,6 @@ namespace Gl
 	void restore_gl();
 	void draw_filled_box(float x, float y, float width, float height, GLubyte color[3]);
 	void draw_frame(float x, float y, float width, float height,float outline_width, GLubyte color[3]);
-	void draw_line(vec2 from, vec2  to, float width, GLubyte color[3]);
+	void draw_line(vec_2 from, vec_2  to, float width, GLubyte color[3]);
 }
 

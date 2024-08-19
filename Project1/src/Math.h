@@ -5,11 +5,11 @@
 
 namespace Math
 {
-	bool worldToScreen(vec3 pos, vec2& screen, viewMatrix matrix, int windowWidth, int windowHeight);
+	bool worldToScreen(vec_3 pos, vec_2& screen, viewMatrix matrix, int windowWidth, int windowHeight);
 
-	bool lookAt(vec3 cameraPos, vec3 target, vec2& rotation);
+	bool lookAt(vec_3 cameraPos, vec_3 target, vec_2& rotation);
 
-	float Magnitude(vec2 from, vec2 to);
-	float Magnitude3(vec3 from, vec3 to);
+	float Magnitude(vec_2 from, vec_2 to);
+	float Magnitude3(vec_3 from, vec_3 to);
 };
 

@@ -47,7 +47,7 @@ void Gl::draw_frame(float x, float y, float width, float height, float outline_w
 	glEnd();
 }
 
-void Gl::draw_line(vec2 from, vec2  to, float width, GLubyte color[3])
+void Gl::draw_line(vec_2 from, vec_2  to, float width, GLubyte color[3])
 {
 	glLineWidth(width);
 	glBegin(GL_LINE_STRIP);

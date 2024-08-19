@@ -9,11 +9,11 @@
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_opengl3.h"
 
+
 #include "Offsets.h"
 #include "glDraw.h"
-#include "Offsets.h"
 #include "Hook.h"
-
+#include "Cheats.h"
 typedef BOOL(__stdcall* template_wglSwapBuffers)(HDC hdc);
 //typedef LRESULT(CALLBACK* WNDPROC) (HWND   hwnd, UINT   uMsg, WPARAM wParam, LPARAM lParam);
 
@@ -25,6 +25,7 @@ BOOL __stdcall hooked_wglSwapBuffers(HDC hdc);
 
 static RECT WindowSize;
 static HWND GameWindow = FindWindowA(NULL, (LPCSTR)"AssaultCube");
+static HWND gameExtGameWindow = FindWindowA(NULL, (LPCSTR)"AssaultCube");
 static int wWidth;
 static int wHeight;
 
